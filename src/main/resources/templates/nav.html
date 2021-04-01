@@ -1,0 +1,32 @@
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    </a>
+     <a class="navbar-item" href="/list"> Danh sách </a>
+     <a class="navbar-item" href="/list"> Báo cáo</a>
+     <a class="navbar-item" href="/list"> Cấu hình </a>
+  </div>
+  <div sec:authorize="!isAuthenticated()" class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary">
+            <strong>Đăng kí</strong>
+          </a>
+          <a class="button is-light" href ="../login">
+            Đăng nhập
+          </a>
+        </div>
+      </div>
+    </div>
+ <div sec:authorize="isAuthenticated()" class="navbar-end">
+      <div class="navbar-item">
+      <h1 class ="is-size-5 mr-5"> <span sec:authentication="name"></span> </h1>
+        <div class="buttons">
+          <a class="button is-primary" href="../logout">
+            <strong>Đăng xuất</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
