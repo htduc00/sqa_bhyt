@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+   	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   	
+   	 
+   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+   	<link rel="stylesheet" href="notifications.css">
+	<script src="notifications.js"></script>
+   	
+   	
+   	<style type="text/css">
+   		.row{
+		    margin-top:40px;
+		    padding: 0 10px;
+		}
+		
+		.clickable{
+		    cursor: pointer;   
+		}		
+		.panel-heading span {
+			margin-top: -20px;
+			font-size: 15px;
+		}
+		.select{
+			margin-top: -8px;
+			padding: 8px;
+		}
+   	</style>
+  </head>
+  <body>
+		<div id="nav-placeholder"> </div>
+		<script>
+			$(function(){
+			  $("#nav-placeholder").load("nav");
+			});
+		</script>
+ 	 <h2 class ="title is-1 has-text-centered mt-2" >CONFIG</h2>
+ 	 	 
+<div class="container">
+    <div class="row">
+		<div class="col-md-12">
+			<div class="panel is-warning">
+				<div class="panel-heading">
+					<h3 class="panel-title is-size-3">Tiền Lương</h3>
+					<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+				</div>
+				<div class="panel-body" style="display:none; font-size: 16px;">
+					<table class = "table is-hoverable is-bordered">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody >
+							<tr>
+								<td>1</td>
+								<td style = "width: 500px">
+									Tiền lương cơ sở
+								 </td>
+								<td> <input id = "cost0" class ="input" type = "number" disabled> </td>
+								<td> 
+									<button class="button is-success" id="edit0" onClick="editButton(this.id)">Sửa</button>
+									<button class="button is-danger" id="save0" onClick="saveButton(this.id)">Lưu</button> 
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+		<div class="col-md-12">
+			<div class="panel is-dark">
+				<div class="panel-heading">
+					<h3 class="panel-title is-size-3">Nhóm do người lao động và người sử dụng lao động đóng</h3>
+					<span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+				</div>
+				<div class="panel-body" style="display:none; font-size: 16px;">
+					<table class = "table is-hoverable is-bordered" id = "table1">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Group Name</th>
+								<th>Cost(%)</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody >
+							<tr>
+								<td>1</td>
+								<td style = "width: 800px">
+								Người lao động làm việc theo hợp đồng lao động không xác định thời hạn, hợp đồng lao động có thời hạn từ đủ 3 tháng trở lên;
+								 người lao động là người quản lý doanh nghiệp hưởng tiền lương; cán bộ, công chức, viên chức (sau đây gọi chung là người lao động)
+								 </td>
+								<td> <input class = "input" value = "4.5" disabled> </td>
+								<td> 
+									<button class="button is-success">Sửa</button>
+									<button class="button is-danger">Lưu</button> 
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+		<div class="col-md-12">
+			<div class="panel is-dark">
+				<div class="panel-heading">
+						<h3 class="panel-title is-size-3">Nhóm do tổ chức bảo hiểm xã hội đóng</h3>
+						<span class="pull-right clickable collapse in"><i class="glyphicon glyphicon-chevron-down"></i></span>
+				</div>
+				<div class="panel-body" style="display:none;font-size: 16px;">
+					<table class = "table is-hoverable" id = "table2">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Group Name</th>
+								<th>Cost(%)</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Nhom 1</td>
+								<td>4.5</td>
+								<td>aa</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class = "row">
+		<div class="col-md-12">
+			<div class="panel is-dark">
+				<div class="panel-heading">
+						<h3 class="panel-title is-size-3">Nhóm do ngân sách nhà nước đóng</h3>
+						<span class="pull-right clickable collapse in"><i class="glyphicon glyphicon-chevron-down"></i></span>
+				</div>
+				<div class="panel-body" style="display:none;font-size: 16px;">
+					<table class = "table is-hoverable" id = "table3">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Group Name</th>
+								<th>Cost(%)</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Nhom 1</td>
+								<td>4.5</td>
+								<td>aa</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class = "row">
+		<div class="col-md-12">
+			<div class="panel is-dark">
+				<div class="panel-heading">
+						<h3 class="panel-title is-size-3">Nhóm được ngân sách nhà nước hỗ trợ mức đóng</h3>
+						<span class="pull-right clickable collapse in"><i class="glyphicon glyphicon-chevron-down"></i></span>
+				</div>
+				<div class="panel-body" style="display:none;font-size: 16px;">
+					<table class = "table is-hoverable" id="table4">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Group Name</th>
+								<th>Cost(%)</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Nhom 1</td>
+								<td>4.5</td>
+								<td>aa</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class = "row">
+		<div class="col-md-12">
+			<div class="panel is-dark">
+				<div class="panel-heading">
+						<h3 class="panel-title is-size-3">Nhóm tham gia bảo hiểm y tế theo hộ gia đình</h3>
+						<span class="pull-right clickable collapse in"><i class="glyphicon glyphicon-chevron-down"></i></span>
+				</div>
+				<div class="panel-body" style="display:none;font-size: 16px;">
+					<table class = "table is-hoverable" id = "table5">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Group Name</th>
+								<th>Cost(%)</th>
+								<th>Người thứ 2</th>
+								<th>Người thứ 3</th>
+								<th>Người thứ 4</th>
+								<th>Người thứ 5 trở đi</th>
+								<th>Select</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>đối tượng tham gia theo hộ gia đình</td>
+								<td> <input class = "input" id="cost24" style="width: 45px" disabled> </td>
+								<td> 
+									<div class = "select">
+										<select id="f2" style="width: 95px;height: 25px;font-size: 12px" disabled>
+											<option value="100">100</option>
+											<option value="90">90</option>
+											<option value="80">80</option>
+											<option value="70">70</option>
+											<option value="60">60</option>
+											<option value="50">50</option>
+											<option value="40">40</option>
+											<option value="30">30</option>
+											<option value="20">20</option>
+											<option value="10">10</option>
+										</select> 
+									</div> 
+								</td>
+								<td> 	
+									<div class = "select">
+										<select id="f3" style="width: 95px;height: 25px;font-size: 12px" disabled>
+											<option value="100">100</option>
+											<option value="90">90</option>
+											<option value="80">80</option>
+											<option value="70">70</option>
+											<option value="60">60</option>
+											<option value="50">50</option>
+											<option value="40">40</option>
+											<option value="30">30</option>
+											<option value="20">20</option>
+											<option value="10">10</option>
+										</select> 
+									</div>  
+								</td> 
+									<td> 	
+									<div class = "select">
+										<select id="f4" style="width: 95px;height: 25px;font-size: 12px" disabled>
+											<option value="100">100</option>
+											<option value="90">90</option>
+											<option value="80">80</option>
+											<option value="70">70</option>
+											<option value="60">60</option>
+											<option value="50">50</option>
+											<option value="40">40</option>
+											<option value="30">30</option>
+											<option value="20">20</option>
+											<option value="10">10</option>
+										</select> 
+									</div>  
+								</td> 
+									<td> 	
+									<div class = "select">
+										<select id="f5" style="width: 95px;height: 25px;font-size: 12px" disabled>
+											<option value="100">100</option>
+											<option value="90">90</option>
+											<option value="80">80</option>
+											<option value="70">70</option>
+											<option value="60">60</option>
+											<option value="50">50</option>
+											<option value="40">40</option>
+											<option value="30">30</option>
+											<option value="20">20</option>
+											<option value="10">10</option>
+										</select> 
+									</div>  
+								</td> 
+								<td> 
+									<button class="button is-success" id="edit24" onClick="editButton(this.id)">Sửa</button> 
+									<button class="button is-danger" id="save24" onClick="saveButton(this.id)">Lưu</button>  
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+	<!-- load data -->
+	<script type="text/javascript">
+		//salary
+		$.getJSON("http://localhost:8080/config/salary/1",function(data){
+			$('#cost0').val(data.value);
+		});
+		
+		
+		//group 5
+		$.getJSON("http://localhost:8080/config/group_detail/24",function(data){
+			$('#cost24').val(data.payment.cost);
+			var fc = data.payment.familyCost.split(",")
+			var i = 2;
+			fc.forEach(function(item){
+				$('#f'+i).val(item);
+				i++;
+			});
+		});
+		
+		
+		//group 1,2,3,4
+		const arr = [1,2,3,4];
+		arr.forEach(function(item,index){
+			var source = "http://localhost:8080/config/group_details/group="+item;
+			$.getJSON(source,function(data){
+				var stt = 1;
+				var output;
+				output +='<thead> <tr> <th>#</th> <th>Group Name</th> <th>Cost(%)</th> <th>Select</th> </tr> </thead>';
+				output +='<tbody>';
+				$.each(data,function(key,val){
+					output += '<tr>';
+					output += '<td>'+stt+'</td>';
+					output += '<td style = "width: 800px">'+val.des+'</td>';
+					output += '<td> <input class = "input" id="cost'+val.id+'" value = "'+val.payment.cost+'" disabled> </td>';
+					output += '<td>	<button class="button is-success" id="edit'+val.id+'" onClick="editButton(this.id)">Sửa</button> <button class="button is-danger" id="save'+val.id+'"onClick="saveButton(this.id)">Lưu</button> </td>';
+					output += '</tr>';
+					
+					stt++;
+				});
+				output +='</tbody>';
+				$('#table'+item).html(output);
+			});
+		});
+	</script>
+	
+	
+	<!-- button function -->
+	<script type="text/javascript">
+		const successNotification = window.createNotification({
+			closeOnClick: true,
+			showDuration: 3000,
+			theme: 'success'
+		});
+		const errorNotification = window.createNotification({
+			closeOnClick: true,
+			showDuration: 3000,
+			theme: 'error'
+		});
+		
+		var oldValue;
+		var oldId;
+		function editButton(id){
+			if(oldId != null)
+				$('#cost'+oldId).val(oldValue);
+			for(i=0;i<=24;i++){
+				$('#cost'+i).prop('disabled', true);
+				if(2 <= i <= 5){
+					$('#f'+i).prop('disabled', true);
+				}
+			}
+			$('#cost'+id.substring(4,6)).prop('disabled', false);
+			if(id==="edit24"){
+				var arr = [2,3,4,5];
+				arr.forEach(function(item){
+					$('#f'+item).prop('disabled',false);
+				});
+			}
+			oldValue = $('#cost'+id.substring(4,6)).val();
+			oldId = id.substring(4,6);
+		}
+		function saveButton(id){
+			oldValue = null;
+			oldId = null;
+			if($('#cost'+id.substring(4,6)).prop('disabled') == false){
+				$('#cost'+id.substring(4,6)).prop('disabled', true);
+				if(id==="save0"){
+					var dataChange = {
+						"value": parseInt($('#cost0').val())
+					}
+					$.ajax({
+						type: "PUT",
+						url: "http://localhost:8080/config/salary/1",
+						contentType: "application/json",
+						data: JSON.stringify(dataChange),
+						success: function(data){
+							successNotification({ 
+								  title: 'Message',
+								  message: 'Lưu thành công' 
+								});
+						}
+						//dataType: 'jsonp',
+					});
+					return;
+				}
+				var dataChange = {
+						"cost": parseFloat($('#cost'+id.substring(4,6)).val()),
+						"familyCost": null,
+				}
+				if (id === "save24"){
+					var arr = [2,3,4,5];
+					arr.forEach(function(item){
+						$('#f'+item).prop('disabled',true);
+					});
+					dataChange['familyCost'] = $('#f2 :selected').val()+','+$('#f3 :selected').val()+','+$('#f4 :selected').val()+','+$('#f5 :selected').val();
+				}
+				console.log(dataChange);
+				if( isNaN(dataChange['cost'])  ||  String(dataChange['cost']) !== $('#cost'+id.substring(4,6)).val() || $('#cost'+id.substring(4,6)).val() === "0"
+						|| parseFloat($('#cost'+id.substring(4,6)).val()) >= 100 || parseFloat($('#cost'+id.substring(4,6)).val()) < 0){
+						errorNotification({ 
+						  title: 'Message',
+						  message: 'Mức đóng không hợp lệ, mức đóng phải thuộc 0.0 -> 100.0' 
+						});
+						$('#cost'+id.substring(4,6)).val(oldValue);
+						return;
+				}
+				$('#cost'+id.substring(4,6)).val($('#cost'+id.substring(4,6)).val());
+				$.ajax({
+					type: "PUT",
+					url: "http://localhost:8080/config/payment/"+id.substring(4,6),
+					contentType: "application/json",
+					data: JSON.stringify(dataChange),
+					success: function(data){
+						successNotification({ 
+							  title: 'Message',
+							  message: 'Lưu thành công' 
+							});
+					}
+					//dataType: 'jsonp',
+				});
+			}
+		}
+	</script>
+
+	<!-- panel click -->
+	<script type="text/javascript">
+	$(document).on('click', '.panel-heading span.clickable', function(e){
+	    var $this = $(this);
+		if(!$this.hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$this.addClass('panel-collapsed');
+			$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+		} else {
+			$this.parents('.panel').find('.panel-body').slideUp();
+			$this.removeClass('panel-collapsed');
+			$this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+		}
+	})
+	</script>
+	
+</body>
+</html>

@@ -14,8 +14,8 @@
 			  $("#nav-placeholder").load("nav");
 			});
 		</script>
- 	 <h2 class ="title is-3 has-text-centered mt-2" >LIST</h2>
-	 <div style="width:530px ;margin:0 auto;">	 
+ 	 <h2 class ="title is-3 has-text-centered mt-2" >DANH SÁCH NGƯỜI THAM GIA</h2>
+	 <div style="width:550px ;margin:0 auto;">	 
 	 	 <div class="select">
 		  <select id = "thanhpho" onchange="selectTP()">
 		    <option value="0">Chọn Thành Phố</option>
@@ -31,32 +31,113 @@
 		    <option value="0">Chọn Phường</option>
 		  </select>
 		</div>
-		<button class = "button is-danger" onClick="buttonClick()">Lọc</button>
+		<button class = "button is-link" onClick="buttonClick()">Lọc</button>
 	</div>
 	
 	<div class = "mb-2  mt-3">
 		<input type = "text"  name = "search" id = "search" style="width: 250px; height: 30px">
 		 <div id = "search_option"class="select is-small">
 			  <select>
-			  	<option value = "bhyt"> BHYT </option>
-			    <option value = "cccd"> CCCD </option>
+			  	<option value = "bhyt"> Mã bảo hiểm y tế </option>
+			    <option value = "name"> Họ tên </option>
 			    <option value = "hospital"> Bệnh Viện </option>
 			  </select>
 		</div>
 	</div>
 	<table class = "table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
 	</table>
+	<!--  
+	<div style = "margin-left: auto;margin-right: auto;width: 250px">
+		 <a id="btn_prev" onclick="prevPage()" class="pagination-previous">Previous</a>
+	 	 <a id="btn_next" onclick="nextPage()" class="pagination-next">Next page</a>
+	</div>
+	-->
+	<script type="text/javascript">
+	/*
+		var source = "http://localhost:8080/list/join/Thanhpho=0/Quan=0/Phuong=0";	
+		var Jsondata;
+		$.getJSON(source,function(data){
+			Jsondata = data;
+		})
+		window.onload = function() {
+		    changePage(1);
+		};
+		var current_page = 1;
+		var records_per_page = 2;	
+		function prevPage()
+		{
+		    if (current_page > 1) {
+		        current_page--;
+		        changePage(current_page);
+		    }
+		}
+	
+		function nextPage()
+		{
+		    if (current_page < numPages()) {
+		        current_page++;
+		        changePage(current_page);
+		    }
+		}
+		    
+		function changePage(page)
+		{
+		    var btn_next = document.getElementById("btn_next");
+		    var btn_prev = document.getElementById("btn_prev");		 
+		    // Validate page
+		    if (page < 1) page = 1;
+		    if (page > numPages()) page = numPages();
+	
+		    var stt = 1;
+			var output;
+			
+			output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham gia</th> </tr>';
+	
+		    for (var i = (page-1) * records_per_page; i < (page * records_per_page) && i < Jsondata.length; i++) {
+				output += '<tr>';
+				output += '<td>'+stt+'</td>';
+				output += '<td>'+Jsondata[i].name+'</td>';
+				output += '<td>'+Jsondata[i].sex+'</td>';
+				output += '<td>'+Jsondata[i].dateOfBirth+'</td>';
+				output += '<td>'+Jsondata[i].cccd+'</td>';
+				output += '<td>'+Jsondata[i].bhyt.code+'</td>';
+				output += '<td>'+Jsondata[i].address+', '+Jsondata[i].phuong.name+', '+Jsondata[i].quan.name+', '+Jsondata[i].thanhpho.name+'</td>';
+				output += '<td>'+Jsondata[i].bhyt.hospital.name+'</td>';
+				output += '<td>'+Jsondata[i].bhyt.joinDate+'</td>';
+				output += '</tr>';
+				
+				stt++;
+		    }
+			$('table').html(output);
+		    if (page == 1) {
+		        btn_prev.style.visibility = "hidden";
+		    } else {
+		        btn_prev.style.visibility = "visible";
+		    }
+	
+		    if (page == numPages()) {
+		        btn_next.style.visibility = "hidden";
+		    } else {
+		        btn_next.style.visibility = "visible";
+		    }
+		}
+	
+		function numPages()
+		{
+		    return Math.ceil(Jsondata.length / records_per_page);
+		}
+	*/
+	</script>
 	
 	<script type="text/javascript">
 		var tpSource = "http://localhost:8080/list/Thanhpho";
 		$.getJSON(tpSource, function(data){
 			var out;
 			out += '<option value="0">Chọn Thành Phố</option>';
-			$.each(data, function(key, val){				
-				out += '<option value="'+val.id+'">'+val.name+'</option>';
+			$.each(data, function(key, val){
+					out += '<option value="'+val.id+'">'+val.name+'</option>';
 			});
-			$('#thanhpho').html(out);
-			
+			$('#thanhpho').html(out);	
 		});
 		function selectTP(){
 			var thanhpho = $('#thanhpho :selected').val();
@@ -100,12 +181,13 @@
 	</script>
 	
 	<script type="text/javascript">
+	
 		var source = "http://localhost:8080/list/join/Thanhpho=0/Quan=0/Phuong=0"	
 		$.getJSON(source, function(data){
 			var stt = 1;
 			var output;
 			
-			output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham gia</th> </tr>';
+			output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày Sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa Chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham Gia</th> </tr>';
 			
 			$.each(data, function(key,val){
 				output += '<tr>';
@@ -125,8 +207,7 @@
 			$('table').html(output);
 			
 		});
-		
-		
+	
 		function buttonClick(){
 			var thanhpho = $('#thanhpho :selected').val();
 			var quan = $('#quan :selected').val();
@@ -138,7 +219,7 @@
 				var stt = 1;
 				var output;
 				
-				output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham gia</th> </tr>';
+				output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày Sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa Chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham Gia</th> </tr>';
 				
 				$.each(data, function(key,val){
 					output += '<tr>';
@@ -175,7 +256,7 @@
 			$.getJSON(source, function(data){
 				var stt = 1;
 				var output;				
-				output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham gia</th> </tr>';
+				output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Giới Tính</th> <th>Ngày Sinh</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Địa Chỉ</th> <th>Nơi Đăng Ký</th> <th>Ngày Tham Gia</th> </tr>';
 				if(option === "bhyt"){
 					$.each(data, function(key,val){
 						if( val.bhyt.code.search(regex) != -1 ){
@@ -194,9 +275,9 @@
 						}
 					});
 				}
-					if(option === "cccd"){
+					if(option === "name"){
 						$.each(data, function(key,val){
-							if( val.cccd.search(regex) != -1 ){
+							if( val.name.search(regex) != -1 ){
 								output += '<tr>';
 								output += '<td>'+stt+'</td>';
 								output += '<td>'+val.name+'</td>';

@@ -3,9 +3,22 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
 	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 	  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	  
+       <style>
+	         body {
+	            background-image: url("background.jpg");
+	            background-size: 1600px 922px;
+	         }
+        	 html{
+			  height: 100%;
+			}
+			body {
+			  min-height: 100%;
+			}
+      </style>
 	</head>
 	<body>
 		<div id="nav-placeholder"> </div>
@@ -14,6 +27,5 @@
 			  $("#nav-placeholder").load("nav");
 			});
 		</script>
-	 	<h2 class ="title is-3 has-text-centered mt-2" >TIKI</h2>
 	</body>
 </html>

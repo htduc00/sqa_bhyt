@@ -13,4 +13,24 @@ public class DefaultController {
     public String List() {
         return "list";
     }
+    @GetMapping("/config")
+    public String Config() {
+        return "config";
+    }
+    @GetMapping("/report/new_join")
+    public String newJoin() {
+    	return "report";
+    }
+    @GetMapping("/report/paid")
+    public String paid() {
+    	return "report1";
+    }
+    @GetMapping("/report/revenue")
+    public String revenue() {
+    	return "report2";
+    }
+    @GetMapping("/error")
+    public String getError() {
+    	return "error";
+    }
 }

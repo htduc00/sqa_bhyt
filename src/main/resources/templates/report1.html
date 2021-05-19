@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+   	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+   	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </head>
+  <body>
+		<div id="nav-placeholder"> </div>
+		<script>
+			$(function(){
+			  $("#nav-placeholder").load("/nav");
+			});
+		</script>
+ 	 <h2 class ="title is-3 has-text-centered mt-2"> DANH SÁCH NGƯỜI ĐÃ ĐÓNG VÀ CHƯA ĐÓNG </h2>
+ 	 <div style="width:400px ;margin:0 auto;">	 
+		 <div class="select">
+			  <select id = "thanhpho">
+			  	<option value="0"> Chọn Thành Phố </option>
+			  </select>
+   		</div>
+		 <div class="select">
+			  <select id = "year">
+			  </select>
+		</div>
+		<button class = "button is-link" onClick="buttonClick()"> Xem </button>
+	</div>
+	<div style="width: 100%;" class = "mt-5">
+		<div style="width: 48%; float:left">
+			<h2 id = "dong0" class="subtitle is-4 has-text-centered has-background-link-dark has-text-white">Đã Đóng</h2>
+			<table id = "table0" class = "table is-bordered is-striped is-narrow is-hoverable is-fullwidth"> </table>
+		</div>	 
+	 	<div style="width: 48%; float:right">
+			<h2 id = "dong1" class="subtitle is-4 has-text-centered has-background-danger-dark has-text-white">Chưa Đóng</h2>
+			<table id = "table1" class = "table is-bordered is-striped is-narrow is-hoverable is-fullwidth"> </table>
+		</div>	 
+	</div>
+ 	
+ 	
+ 	<script type="text/javascript">
+		var tpSource = "http://localhost:8080/list/Thanhpho";
+		$.getJSON(tpSource, function(data){
+			var out;
+			out += '<option value="0">Chọn Thành Phố</option>';
+			$.each(data, function(key, val){
+					out += '<option value="'+val.id+'">'+val.name+'</option>';
+			});
+			$('#thanhpho').html(out);	
+		});
+		
+		var out;
+		var currentYear = new Date().getFullYear();
+		out += '<option value="'+currentYear+'">'+currentYear+'</option>';
+		for(i = 1; i<= 5; i++){
+			out += '<option value="'+(currentYear-i)+'">'+(currentYear-i)+'</option>';
+		}
+		$('#year').html(out);
+ 	</script>
+ 	
+ 	<script type="text/javascript">
+ 		var year = new Date().getFullYear();
+		var source = "http://localhost:8080/report/paid/TP=0/year="+year;	
+		$.getJSON(source, function(data){
+			data.forEach(function(item,index){
+				$('#dong'+index).text($('#dong'+index).text()+": " + item.length)
+				var stt = 1;
+				var output;
+				
+				output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Thành Phố</th> </tr>';
+				
+				$.each(item, function(key,val){
+					output += '<tr>';
+					output += '<td>'+stt+'</td>';
+					output += '<td>'+val.name+'</td>';
+					output += '<td>'+val.cccd+'</td>';
+					output += '<td>'+val.bhyt.code+'</td>';
+					output += '<td>'+val.thanhpho.name+'</td>';
+					output += '</tr>';
+					
+					stt++;
+				});
+				$('#table'+index).html(output);	
+			});
+		});
+		
+ 	</script>
+ 	
+ 	<script type="text/javascript">
+	 	function buttonClick(){
+	 		var thanhphoid = $('#thanhpho :selected').val();
+	 		var year = $('#year :selected').val();
+			var source = "http://localhost:8080/report/paid/TP="+thanhphoid+"/year="+year;	
+			$.getJSON(source, function(data){
+				data.forEach(function(item,index){
+					$('#dong'+index).text($('#dong'+index).text().slice(0, -3)+": " + item.length)
+					var stt = 1;
+					var output;
+					
+					output += '<tr> <th>Stt</th> <th>Họ Tên</th> <th>Căn Cước Công Dân</th> <th>Mã Bảo Hiểm Y Tế</th> <th>Thành Phố</th> </tr>';
+					
+					$.each(item, function(key,val){
+						output += '<tr>';
+						output += '<td>'+stt+'</td>';
+						output += '<td>'+val.name+'</td>';
+						output += '<td>'+val.cccd+'</td>';
+						output += '<td>'+val.bhyt.code+'</td>';
+						output += '<td>'+val.thanhpho.name+'</td>';
+						output += '</tr>';
+						
+						stt++;
+					});
+					$('#table'+index).html(output);	
+				});
+			});
+	 	}
+ 	</script>
+ 	
+  </body>
+</html>
